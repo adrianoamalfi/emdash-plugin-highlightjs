@@ -1,0 +1,72 @@
+---
+import hljs from "highlight.js";
+
+export interface Props {
+	node: {
+		_type: "code";
+		_key: string;
+		code: string;
+		language?: string;
+		filename?: string;
+	};
+}
+
+const { node } = Astro.props;
+
+if (!node?.code) {
+	return null;
+}
+
+const { code, language, filename } = node;
+
+let highlighted: string;
+let detectedLanguage = language;
+try {
+	if (language && hljs.getLanguage(language)) {
+		const result = hljs.highlight(code, { language, ignoreIllegals: true });
+		highlighted = result.value;
+	} else {
+		const result = hljs.highlightAuto(code);
+		highlighted = result.value;
+		detectedLanguage = result.language;
+	}
+} catch {
+	highlighted = code
+		.replace(/&/g, "&amp;")
+		.replace(/</g, "&lt;")
+		.replace(/>/g, "&gt;")
+		.replace(/"/g, "&quot;");
+}
+---
+
+<div class="emdash-code">
+	{filename && <div class="emdash-code-filename">{filename}</div>}
+	<pre class={detectedLanguage ? `language-${detectedLanguage}` : ""}><code class="hljs" set:html={highlighted} /></pre>
+</div>
+
+<style>
+	.emdash-code {
+		margin: 1.5rem 0;
+		position: relative;
+	}
+	.emdash-code-filename {
+		font-size: 0.75rem;
+		font-family: monospace;
+		background: #2d2d2d;
+		color: #ccc;
+		padding: 0.5rem 1rem;
+		border-radius: 0.5rem 0.5rem 0 0;
+	}
+	.emdash-code pre {
+		margin: 0;
+		border-radius: 0.5rem;
+		overflow-x: auto;
+	}
+	.emdash-code-filename + pre {
+		border-radius: 0 0 0.5rem 0.5rem;
+	}
+	.emdash-code code {
+		font-family: "Fira Code", "Consolas", monospace;
+		font-size: 0.875rem;
+	}
+</style>
