@@ -30,7 +30,9 @@
     "version": "node -p \"require('./package.json').version\""
   },
   "release": {
-    "branches": ["main"],
+    "branches": [
+      "main"
+    ],
     "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
@@ -48,7 +50,7 @@
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
-    "semantic-release": "^24.2.3",
+    "semantic-release": "^25.0.3",
     "vitest": "^4.1.6"
   }
 }
