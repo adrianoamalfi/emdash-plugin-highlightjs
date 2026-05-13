@@ -122,7 +122,7 @@ export function createPlugin(_options?: Record<string, unknown>) {
 
 			"page:fragments": async (_event: unknown, ctx: PluginContext) => {
 				const settings = await getSettings(ctx);
-				const fragments: Array<Record<string, unknown>> = [];
+				const fragments = [];
 
 				const themeId = settings.theme as string;
 				const theme = THEMES.find((t) => t.id === themeId) || THEMES[0];
@@ -173,7 +173,7 @@ export function createPlugin(_options?: Record<string, unknown>) {
 					});
 				}
 
-				return fragments;
+				return fragments as any;
 			},
 		},
 
