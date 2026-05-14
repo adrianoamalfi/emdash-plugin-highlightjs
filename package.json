@@ -29,7 +29,9 @@
     "test:watch": "vitest",
     "version": "node -p \"require('./package.json').version\""
   },
-  "files": ["src"],
+  "files": [
+    "src"
+  ],
   "publishConfig": {
     "access": "public"
   },
