@@ -16,6 +16,12 @@ Syntax highlighting for [EmDash CMS](https://emdashcms.com) using [Highlight.js]
 - **CSS caching** — Theme CSS read once and cached in memory
 - **Server-side highlighting** — No client JS cost for syntax highlighting
 
+## Prerequisites
+
+- EmDash CMS `^0.12.0`
+- Your base layout must include `<EmDashHead />` and `<EmDashBodyEnd />` — the plugin injects theme CSS and copy button scripts via these hooks.
+- This plugin uses the **native format** and must be placed in `plugins: []` (not `sandboxed: []`).
+
 ## Installation
 
 ```bash
@@ -28,17 +34,20 @@ Register the plugin in `astro.config.mjs`:
 
 ```ts
 import { highlightjsPlugin } from "emdash-plugin-highlightjs";
+import emdash from "emdash/astro";
+import { defineConfig } from "astro/config";
 
 export default defineConfig({
   integrations: [
     emdash({
-      plugins: [highlightjsPlugin()],
+      plugins: [highlightjsPlugin()],  // native format — only works in plugins: []
+      // database and storage remain unchanged
     }),
   ],
 });
 ```
 
-CSS and copy button are injected automatically on all public pages. `Code.astro` renders automatically for `code` blocks in Portable Text content.
+Theme CSS and the copy button are injected automatically on all public pages. The `Code.astro` component renders `code` blocks in Portable Text content — make sure `code` is a registered block type in your Portable Text schema configuration.
 
 ## How It Works
 
