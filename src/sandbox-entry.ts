@@ -1,5 +1,5 @@
 import { definePlugin } from "emdash";
-import type { PluginContext } from "emdash";
+import type { PluginContext, RouteContext } from "emdash";
 import { createRequire } from "module";
 import fs from "fs";
 
@@ -106,6 +106,12 @@ function clearCache(): void {
 
 export function createPlugin() {
 	return definePlugin({
+		id: "highlightjs",
+		version: "1.0.0",
+		capabilities: ["hooks.page-fragments:register"],
+		admin: {
+			pages: [{ path: "/settings", label: "Highlight.js", icon: "code" }],
+		},
 		hooks: {
 			"plugin:install": async (_event: unknown, ctx: PluginContext) => {
 				await ctx.kv.set(SETTINGS_KEY, { ...DEFAULTS });
@@ -175,8 +181,8 @@ export function createPlugin() {
 
 		routes: {
 			admin: {
-				handler: async (routeCtx: any, ctx: PluginContext) => {
-					const interaction = routeCtx.input as Record<string, any>;
+				handler: async (ctx: RouteContext) => {
+					const interaction = ctx.input as Record<string, any>;
 
 					if (interaction.type === "page_load") {
 						return { blocks: buildForm(await getSettings(ctx)) };
@@ -186,7 +192,12 @@ export function createPlugin() {
 						try {
 							const values = interaction.values ?? {};
 							const s: Record<string, unknown> = {};
-							if (values.theme !== undefined) s.theme = values.theme;
+							if (values.theme !== undefined) {
+								if (!THEMES.some(t => t.id === values.theme)) {
+									throw new Error("Invalid theme selected.");
+								}
+								s.theme = values.theme;
+							}
 							if (values.copy_button !== undefined) s.copyButton = values.copy_button;
 							await ctx.kv.set(SETTINGS_KEY, { ...DEFAULTS, ...s });
 							clearCache();
@@ -196,10 +207,10 @@ export function createPlugin() {
 									...buildForm(await getSettings(ctx)),
 								],
 							};
-						} catch (e) {
+						} catch {
 							return {
 								blocks: [
-									{ type: "banner", title: `Failed to save: ${(e as Error).message}`, variant: "error" },
+									{ type: "banner", title: "Failed to save settings.", variant: "error" },
 									...buildForm(await getSettings(ctx)),
 								],
 							};
@@ -210,7 +221,7 @@ export function createPlugin() {
 				},
 			},
 		},
-	});
+	} as any);
 }
 
 export default createPlugin;

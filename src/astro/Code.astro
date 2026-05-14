@@ -13,29 +13,31 @@ export interface Props {
 
 const { node } = Astro.props;
 
-if (!node?.code) {
-	return null;
-}
+if (!node?.code) return;
 
 const { code, language, filename } = node;
 
 let highlighted: string;
-let detectedLanguage = language;
+let detectedLanguage = "";
+const validLanguages = hljs.listLanguages();
 try {
 	if (language && hljs.getLanguage(language)) {
 		const result = hljs.highlight(code, { language, ignoreIllegals: true });
 		highlighted = result.value;
+		if (validLanguages.includes(language)) detectedLanguage = language;
 	} else {
 		const result = hljs.highlightAuto(code);
 		highlighted = result.value;
-		detectedLanguage = result.language;
+		if (result.language && validLanguages.includes(result.language)) detectedLanguage = result.language;
 	}
 } catch {
 	highlighted = code
 		.replace(/&/g, "&amp;")
 		.replace(/</g, "&lt;")
 		.replace(/>/g, "&gt;")
-		.replace(/"/g, "&quot;");
+		.replace(/"/g, "&quot;")
+		.replace(/'/g, "&#39;")
+		.replace(/`/g, "&#96;");
 }
 ---
 
