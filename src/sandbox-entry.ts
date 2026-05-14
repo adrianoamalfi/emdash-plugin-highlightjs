@@ -106,6 +106,9 @@ function clearCache(): void {
 
 export function createPlugin() {
 	return definePlugin({
+		id: "highlightjs",
+		version: "1.0.0",
+		capabilities: ["hooks.page-fragments:register"],
 		hooks: {
 			"plugin:install": async (_event: unknown, ctx: PluginContext) => {
 				await ctx.kv.set(SETTINGS_KEY, { ...DEFAULTS });
@@ -215,7 +218,7 @@ export function createPlugin() {
 			},
 			},
 		},
-	});
+	} as any);
 }
 
 export default createPlugin;
