@@ -3,7 +3,7 @@ import type { PluginDescriptor } from "emdash";
 export function highlightjsPlugin(): PluginDescriptor {
 	return {
 		id: "highlightjs",
-		version: "1.0.0",
+		version: "0.1.0",
 		format: "native",
 		entrypoint: "emdash-plugin-highlightjs/sandbox",
 		componentsEntry: "emdash-plugin-highlightjs/astro",
