@@ -7,6 +7,7 @@ export function highlightjsPlugin(): PluginDescriptor {
 		format: "native",
 		entrypoint: "emdash-plugin-highlightjs/sandbox",
 		componentsEntry: "emdash-plugin-highlightjs/astro",
+		options: {},
 		capabilities: ["hooks.page-fragments:register"],
 		adminPages: [{ path: "/settings", label: "Highlight.js", icon: "code" }],
 	};

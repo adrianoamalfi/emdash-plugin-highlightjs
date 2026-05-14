@@ -57,10 +57,15 @@ describe("CSS cache", () => {
 });
 
 describe("Plugin definition", () => {
-  it("creates plugin with id and version", () => {
+  it("exports createPlugin with definePlugin", () => {
     expect(source).toContain("createPlugin");
-    expect(source).toContain('id: "highlightjs"');
-    expect(source).toContain('version: "1.0.0"');
+    expect(source).toContain("definePlugin");
+  });
+
+  it("declares id and version in descriptor", () => {
+    const indexSource = readFileSync(resolve(__dirname, "../src/index.ts"), "utf-8");
+    expect(indexSource).toContain('id: "highlightjs"');
+    expect(indexSource).toContain('version: "1.0.0"');
   });
 
   it("has page:fragments hook", () => {
