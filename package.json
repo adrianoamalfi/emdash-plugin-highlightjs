@@ -4,7 +4,7 @@
   "description": "Syntax highlighting for EmDash CMS using Highlight.js — 12 themes, auto dark/light mode, copy button, and a custom code block component for Portable Text.",
   "type": "module",
   "license": "MIT",
-  "author": "Adriano Amalfi",
+  "author": "Adriano Amalfi <adrianoamalfi@gmail.com> (https://adrianoamalfi.com)",
   "repository": {
     "type": "git",
     "url": "https://github.com/adrianoamalfi/emdash-plugin-highlightjs"
