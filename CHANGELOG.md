@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/adrianoamalfi/emdash-plugin-highlightjs/compare/v1.0.0...v1.0.1) (2026-05-14)
+
+
+### Bug Fixes
+
+* trigger patch release ([9d3ab32](https://github.com/adrianoamalfi/emdash-plugin-highlightjs/commit/9d3ab326fcfce77d8eec836861e80e21068194aa))
+
 # 1.0.0 (2026-05-14)
 
 

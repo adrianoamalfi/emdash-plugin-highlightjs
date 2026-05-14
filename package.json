@@ -1,6 +1,6 @@
 {
   "name": "emdash-plugin-highlightjs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Syntax highlighting for EmDash CMS using Highlight.js — 12 themes, auto dark/light mode, copy button, and a custom code block component for Portable Text.",
   "type": "module",
   "license": "MIT",
