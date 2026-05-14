@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/adrianoamalfi/emdash-plugin-highlightjs/compare/v1.0.1...v1.0.2) (2026-05-14)
+
+
+### Bug Fixes
+
+* security hardening and type safety improvements for highlightjs plugin ([#12](https://github.com/adrianoamalfi/emdash-plugin-highlightjs/issues/12)) ([71cea8c](https://github.com/adrianoamalfi/emdash-plugin-highlightjs/commit/71cea8c88ad54116ae4536dc1f90564ee16359e0))
+
 ## [1.0.1](https://github.com/adrianoamalfi/emdash-plugin-highlightjs/compare/v1.0.0...v1.0.1) (2026-05-14)
 
 
