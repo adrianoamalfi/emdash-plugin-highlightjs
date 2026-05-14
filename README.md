@@ -1,5 +1,9 @@
 # emdash-plugin-highlightjs
 
+[![CI](https://github.com/adrianoamalfi/emdash-plugin-highlightjs/actions/workflows/ci.yml/badge.svg)](https://github.com/adrianoamalfi/emdash-plugin-highlightjs/actions/workflows/ci.yml)
+[![Security](https://github.com/adrianoamalfi/emdash-plugin-highlightjs/actions/workflows/security.yml/badge.svg)](https://github.com/adrianoamalfi/emdash-plugin-highlightjs/actions/workflows/security.yml)
+[![npm version](https://img.shields.io/npm/v/emdash-plugin-highlightjs)](https://www.npmjs.com/package/emdash-plugin-highlightjs)
+
 Syntax highlighting for [EmDash CMS](https://emdashcms.com) using [Highlight.js](https://highlightjs.org/). Features 12 themes, automatic dark/light mode switching, a configurable copy button, and a custom code block component for Portable Text.
 
 ## Features

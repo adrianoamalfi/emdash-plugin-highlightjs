@@ -104,17 +104,8 @@ function clearCache(): void {
 	cssCache = {};
 }
 
-export function createPlugin(_options?: Record<string, unknown>) {
+export function createPlugin() {
 	return definePlugin({
-		id: "highlightjs",
-		version: "1.0.0",
-
-		capabilities: ["hooks.page-fragments:register"],
-
-		admin: {
-			pages: [{ path: "/settings", label: "Highlight.js", icon: "code" }],
-		},
-
 		hooks: {
 			"plugin:install": async (_event: unknown, ctx: PluginContext) => {
 				await ctx.kv.set(SETTINGS_KEY, { ...DEFAULTS });
@@ -122,7 +113,12 @@ export function createPlugin(_options?: Record<string, unknown>) {
 
 			"page:fragments": async (_event: unknown, ctx: PluginContext) => {
 				const settings = await getSettings(ctx);
-				const fragments = [];
+				const fragments: Array<{
+					kind: string;
+					placement: string;
+					html?: string;
+					code?: string;
+				}> = [];
 
 				const themeId = settings.theme as string;
 				const theme = THEMES.find((t) => t.id === themeId) || THEMES[0];
@@ -173,15 +169,14 @@ export function createPlugin(_options?: Record<string, unknown>) {
 					});
 				}
 
-				return fragments as any;
+				return fragments;
 			},
 		},
 
 		routes: {
 			admin: {
-				handler: async (routeCtx: any) => {
+				handler: async (routeCtx: any, ctx: PluginContext) => {
 					const interaction = routeCtx.input as Record<string, any>;
-					const ctx = routeCtx as PluginContext;
 
 					if (interaction.type === "page_load") {
 						return { blocks: buildForm(await getSettings(ctx)) };
@@ -217,6 +212,8 @@ export function createPlugin(_options?: Record<string, unknown>) {
 		},
 	});
 }
+
+export default createPlugin;
 
 function buildForm(s: Record<string, unknown>) {
 	return [
