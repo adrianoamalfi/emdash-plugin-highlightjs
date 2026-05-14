@@ -109,6 +109,9 @@ export function createPlugin() {
 		id: "highlightjs",
 		version: "1.0.0",
 		capabilities: ["hooks.page-fragments:register"],
+		admin: {
+			pages: [{ path: "/settings", label: "Highlight.js", icon: "code" }],
+		},
 		hooks: {
 			"plugin:install": async (_event: unknown, ctx: PluginContext) => {
 				await ctx.kv.set(SETTINGS_KEY, { ...DEFAULTS });
